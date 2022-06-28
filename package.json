@@ -16,7 +16,7 @@
     "agentkeepalive": "^4.2.1",
     "axios": "^0.27.2",
     "js-cookie": "^3.0.1",
-    "next": "12.1.6",
+    "next": "12.1.5",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
