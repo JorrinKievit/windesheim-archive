@@ -62,13 +62,13 @@ const Home: NextPage = () => {
           The <TextLink href={WINDESHEIM_URL} text="Windesheim ELO" /> will be
           migrating to the new platform called Brightspace. On 1 September 2022
           you will no longer be able to access your files. Using this website,
-          you will be able to archive all classes you have from the{" "}
+          you will be able to archive all courses you have from the{" "}
           <TextLink href={WINDESHEIM_URL} text="Windesheim ELO" />.
         </Text>
         <Text>
           Below, you are required to insert your own cookies. This is a manual
           step since a browser is not allowed to retrieve cookies from an
-          external site. The cookies are used to retrieve your personal classes
+          external site. The cookies are used to retrieve your personal courses
           and their designated files.
         </Text>
         <Image src={instructionPic} alt="instruction" priority />
@@ -76,7 +76,7 @@ const Home: NextPage = () => {
           After inserting your credentials, press &quot;Get Archive&quot;.
           Select a folder you wish to insert all files into. Make sure you have
           enough space on your disk, all files could take up to 15GB depending
-          on the amount of classes.
+          on the amount of courses.
         </Text>
         <Alert title="Note:">
           <Stack spacing={6}>
