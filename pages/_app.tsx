@@ -92,7 +92,11 @@ function MyApp({ Component, pageProps }: AppProps) {
               href="https://www.linkedin.com/in/JorrinKievit/"
               text="Jorrin Kievit"
             />
-            , {t("credits")}
+            , {t("credits")}. Source code:{" "}
+            <TextLink
+              href="https://github.com/JorrinKievit/windesheim-archive"
+              text="GitHub"
+            />
           </Text>
         </Box>
       </MantineProvider>
