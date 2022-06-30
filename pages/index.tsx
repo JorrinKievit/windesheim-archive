@@ -8,25 +8,30 @@ import {
   Text,
   Stack,
   Alert,
-  List,
+  useMantineTheme,
 } from "@mantine/core";
 import { useForm } from "@mantine/hooks";
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import { Cookies, ProgressEvent } from "../types";
 import { ArchiveHandler } from "../utils/archiveHandler";
 import JSCookies from "js-cookie";
 import { WINDESHEIM_URL } from "../utils/constants";
 import { useCallback, useEffect, useState } from "react";
-import Image from "next/image";
-import instructionPic from "../public/instruction.png";
 import TextLink from "../components/TextLink";
+import InstructionModal from "../components/InstructionModal";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const Home: NextPage = () => {
+  const { t } = useTranslation("common");
   const [progress, setProgress] = useState(0);
   const [disabled, setDisabled] = useState(false);
+  const [opened, setOpened] = useState(false);
   const form = useForm<Cookies>({
     initialValues: { _3sct: "", "N%40TCookie": "" },
   });
+
+  const theme = useMantineTheme();
 
   const handleSubmit = async (cookies: Cookies) => {
     JSCookies.set("_3sct", cookies._3sct);
@@ -56,82 +61,88 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <Container size="sm">
-      <Stack spacing={14}>
-        <Text>
-          The <TextLink href={WINDESHEIM_URL} text="Windesheim ELO" /> will be
-          migrating to the new platform called Brightspace. On 1 September 2022
-          you will no longer be able to access your files. Using this website,
-          you will be able to archive all courses you have from the{" "}
-          <TextLink href={WINDESHEIM_URL} text="Windesheim ELO" />.
-        </Text>
-        <Text>
-          Below, you are required to insert your own cookies. This is a manual
-          step since a browser is not allowed to retrieve cookies from an
-          external site. The cookies are used to retrieve your personal courses
-          and their designated files.
-        </Text>
-        <Image src={instructionPic} alt="instruction" priority />
-        <Text>
-          After inserting your credentials, press &quot;Get Archive&quot;.
-          Select a folder you wish to insert all files into. Make sure you have
-          enough space on your disk, all files could take up to 15GB depending
-          on the amount of courses.
-        </Text>
-        <Alert title="Note:">
-          <Stack spacing={6}>
-            <Text>
-              Make sure to retrieve the cookies from the same supported browser
-              you are currently using to view this website.
-            </Text>
-            <Text>
-              Only a small amount of browsers is currently supported. This is
-              due to native File System. These are the current{" "}
-              <TextLink
-                href="https://developer.mozilla.org/en-US/docs/Web/API/Window/showDirectoryPicker"
-                text="supported browsers"
-              />
-              :{" "}
-              <span style={{ fontWeight: "bold" }}>
-                Chrome 86, Edge 86, Opera 72
-              </span>
-            </Text>
-            <Text>
-              Retrieving all files could also take a while. Do not close the
-              window/browser after pressing &quot;Get Archive&quot;. Progress
-              can be seen on the bottom of the page.
-            </Text>
-          </Stack>
-        </Alert>
-        <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
-          <TextInput
-            required
-            label="_3sct cookie"
-            {...form.getInputProps("_3sct")}
-          />
-          <TextInput
-            required
-            label="N%40TCookie"
-            {...form.getInputProps("N%40TCookie")}
-          />
-          <Group position="right" mt="md">
-            <Button type="submit" disabled={disabled}>
-              Get Archive
-            </Button>
-          </Group>
-        </form>
-        <Box pb={16}>
-          <Text>Progress:</Text>
-          <Progress
-            value={progress}
-            label={`${Math.round(progress)}%`}
-            size="xl"
-            animate
-          />
-        </Box>
-      </Stack>
-    </Container>
+    <>
+      <Container size="sm">
+        <Stack spacing={14}>
+          <Text>
+            {t("the")} <TextLink href={WINDESHEIM_URL} text="Windesheim ELO" />{" "}
+            {t("first_paragraph")}{" "}
+            <TextLink href={WINDESHEIM_URL} text="Windesheim ELO" />.
+          </Text>
+          <Text>
+            {t("second_paragraph")}{" "}
+            <Box
+              component="span"
+              sx={{
+                color: theme.colors.blue[7],
+                cursor: "pointer",
+                "&:hover": { textDecoration: "underline" },
+              }}
+              onClick={() => setOpened(true)}
+            >
+              {t("cookies_question")}
+            </Box>
+          </Text>
+          <Text>{t("third_paragraph")}</Text>
+          <Alert title="Note:">
+            <Stack spacing={6}>
+              <Text>{t("note.first_note")}</Text>
+              <Text>
+                {t("note.second_note")}{" "}
+                <TextLink
+                  href="https://developer.mozilla.org/en-US/docs/Web/API/Window/showDirectoryPicker"
+                  text={t("note.supported_browsers")}
+                />
+                :{" "}
+                <span style={{ fontWeight: "bold" }}>
+                  Chrome 86, Edge 86, Opera 72
+                </span>
+              </Text>
+              <Text>{t("note.third_note")}</Text>
+            </Stack>
+          </Alert>
+          <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
+            <TextInput
+              required
+              label="_3sct cookie"
+              {...form.getInputProps("_3sct")}
+            />
+            <TextInput
+              required
+              label="N%40TCookie"
+              {...form.getInputProps("N%40TCookie")}
+            />
+            <Group position="right" mt="md">
+              <Button type="submit" disabled={disabled}>
+                {t("archive_button")}
+              </Button>
+            </Group>
+          </form>
+          <Box pb={16}>
+            <Text>{t("progress")}:</Text>
+            <Progress
+              value={progress}
+              label={`${Math.round(progress)}%`}
+              size="xl"
+              animate
+            />
+          </Box>
+        </Stack>
+      </Container>
+
+      <InstructionModal opened={opened} onClose={() => setOpened(false)} />
+    </>
   );
 };
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale as string, [
+      "common",
+      "footer",
+      "instruction",
+    ])),
+  },
+});
 
 export default Home;

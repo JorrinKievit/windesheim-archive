@@ -1,0 +1,15 @@
+{
+  "the": "The",
+  "first_paragraph": "will be migrating to the new platform called Brightspace. On 1 September 2022 you will no longer be able to access your files. Using this website, you will be able to archive all courses you have from the",
+  "second_paragraph": "Below, you are required to insert your own cookies. This is a manual step since a browser is not allowed to retrieve cookies from an external site. The cookies are used to retrieve your personal courses and their designated files.",
+  "cookies_question": "How do I get my cookies?",
+  "third_paragraph": "After inserting your credentials, press \"Get Archive\" Select a folder you wish to insert all files into. Make sure you have enough space on your disk, all files could take up to 15GB depending on the amount of courses.",
+  "note": {
+    "first_note": "Make sure to retrieve the cookies from the same supported browser you are currently using to view this website.",
+    "second_note": "Only a small amount of browsers is currently supported. This is due to native File System. These are the current",
+    "supported_browsers": "supported browsers",
+    "third_note": "Retrieving all files could also take a while. Do not close the window/browser after pressing \"Get Archive\". Progress can be seen on the bottom of the page."
+  },
+  "archive_button": "Get Archive",
+  "progress": "Progress"
+}

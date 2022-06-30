@@ -1,0 +1,32 @@
+{
+  "modal": {
+    "title": "Retrieving Cookies from the ELO"
+  },
+  "steps": {
+    "step_1": {
+      "label": "Opening browser Devtools",
+      "description": "On elo.windesheim.nl",
+      "step_title": "Step 1: Open the browser Devtools.",
+      "step_description_1": "You can do this by pressing the F12 key, or by right clicking on the page and selecting \"Inspect\" or \"Inspect element\" Make sure to do this on",
+      "step_description_2": "and in the same browser you are currently using!"
+    },
+    "step_2": {
+      "label": "Navigating to Cookies",
+      "step_title": "Step 2: Navigate to elo.windesheim.nl Cookies."
+    },
+    "step_3": {
+      "label": "Copying cookies",
+      "step_title_1": "Step 3: Copy the cookies.",
+      "step_title_2": "Copy the cookie values",
+      "step_title_3": "_3sct and N%40TCookie",
+      "step_description": "by double clicking on the value in the \"Value\"column, and insert them in their appropiate fields on the bottom of the page."
+    },
+    "step_completed": {
+      "description": "Done! You can close this window or navigate back to the previous steps."
+    }
+  },
+  "buttons": {
+    "back": "Back",
+    "next_step": "Next step"
+  }
+}

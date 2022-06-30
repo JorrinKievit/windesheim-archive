@@ -1,0 +1,32 @@
+{
+  "modal": {
+    "title": "Ophalen van cookies vanuit de ELO"
+  },
+  "steps": {
+    "step_1": {
+      "label": "Openen browser Devtools",
+      "description": "Zorg ervoor dat u ingelogd bent.",
+      "step_title": "Stap 1: Openen browser Devtools",
+      "step_description_1": "U kunt dit doen door de F12 knop in te drukken, of door rechtermuisknop op de pagina te drukken en \"Element inspecteren\" te drukken. Zorg ervoor dat je dit op",
+      "step_description_2": "en in de browser doet waarop u dit leest!"
+    },
+    "step_2": {
+      "label": "Navigeren naar de cookies",
+      "step_title": "Stap 2: Navigeren naar elo.windesheim.nl cookies."
+    },
+    "step_3": {
+      "label": "Kopiëren van de cookies",
+      "step_title_1": "Stap 3: Kopiëren van de cookies",
+      "step_title_2": "Kopieer de cookie waarden",
+      "step_title_3": "_3sct en N%40TCookie",
+      "step_description": "door dubbel te klikken op de waarde in de \"Value\" kolom, en deze in de velden op de huidige pagina in te voegen."
+    },
+    "step_completed": {
+      "description": "U bent klaar! Je kan dit venster nu sluiten of teruggaan naar vorige stappen."
+    }
+  },
+  "buttons": {
+    "back": "Terug",
+    "next_step": "Volgende stap"
+  }
+}

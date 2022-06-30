@@ -1,38 +1,22 @@
-import axios, { AxiosInstance } from "axios";
+import axios from "axios";
 import {
   ApiError,
   StudyRouteContent,
   StudyRouteUserhandInDetails,
   ProgressEvent,
 } from "../types";
-import {
-  WINDESHEIM_LOAD_STUDY_ROUTE_CONTENT,
-  WINDESHEIM_LOAD_USER_HANDIN_DETAILS,
-  WINDESHEIM_STUDY_ROUTES,
-  WINDESHEIM_URL,
-} from "./constants";
-import Agent from "agentkeepalive";
+import { WINDESHEIM_URL } from "./constants";
 
 export class ArchiveHandler {
   progress: number;
   directoryHandler!: FileSystemDirectoryHandle;
-  client: AxiosInstance;
 
   constructor() {
-    const axiosInstance = axios.create({
-      maxBodyLength: Infinity,
-      maxContentLength: Infinity,
-      withCredentials: true,
-      httpAgent: new Agent(),
-      httpsAgent: new Agent.HttpsAgent(),
-    });
-
     this.progress = 0;
-    this.client = axiosInstance;
   }
 
   getStudyRoutes = async () => {
-    return await this.client.get(WINDESHEIM_STUDY_ROUTES);
+    return await axios.get("/api/studyRoutes");
   };
 
   downloadFile = async (_url: string, folder: string, _filename: string) => {
@@ -53,14 +37,16 @@ export class ArchiveHandler {
           return;
         }
       } catch (e) {
-        console.log(`${filename} does not exist, retrieving`);
+        console.log(`${filename} not found locally, retrieving`);
       }
 
       if (url.slice(0, 4) != "http") {
         url = WINDESHEIM_URL.slice(0, -1) + url;
       }
 
-      const file = await this.client.get(url);
+      const file = await axios.get(`/api/file/${encodeURIComponent(url)}`, {
+        responseType: "arraybuffer",
+      });
 
       let createdFile = await currentDir.getFileHandle(filename, {
         create: true,
@@ -80,12 +66,11 @@ export class ArchiveHandler {
     path: string
   ) => {
     try {
-      const box = await this.client.get(
-        WINDESHEIM_LOAD_USER_HANDIN_DETAILS(routeContent.STUDYROUTE_RESOURCE_ID)
+      const box = await axios.get(
+        `/api/handInDetails/${routeContent.STUDYROUTE_RESOURCE_ID}`
       );
 
-      const studyRouteHandInDetails: StudyRouteUserhandInDetails[] =
-        box.data.STUDYROUTE_USER_HANDINDETAILS;
+      const studyRouteHandInDetails: StudyRouteUserhandInDetails[] = box.data;
 
       studyRouteHandInDetails.forEach(async (handIn) => {
         if (handIn.DESCRIPTION_DOCUMENT_URL) {
@@ -121,11 +106,10 @@ export class ArchiveHandler {
 
   parseFolder = async (route_id: number, folder_id: number, path: string) => {
     try {
-      const response = await this.client.get(
-        WINDESHEIM_LOAD_STUDY_ROUTE_CONTENT(route_id, folder_id)
+      const response = await axios.get(
+        `/api/studyRouteContent/${route_id}/${folder_id}`
       );
-      const studyRoutesContent: StudyRouteContent[] =
-        response.data.STUDYROUTE_CONTENT;
+      const studyRoutesContent: StudyRouteContent[] = response.data;
 
       for (const routeContent of studyRoutesContent) {
         routeContent.NAME = this.cleanFolderName(routeContent.NAME);
@@ -191,7 +175,7 @@ export class ArchiveHandler {
     const response = await this.getStudyRoutes();
 
     if (response.status === 200) {
-      const studyRoutes = response.data.STUDYROUTES;
+      const studyRoutes = response.data;
       await this.loopTroughResults(
         studyRoutes as unknown as StudyRouteContent[]
       );

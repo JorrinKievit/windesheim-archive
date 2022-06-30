@@ -1,10 +1,18 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { Box, Text, MantineProvider, Title } from "@mantine/core";
+import { Box, Text, MantineProvider, Title, Tooltip } from "@mantine/core";
 import TextLink from "../components/TextLink";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { appWithTranslation, useTranslation } from "next-i18next";
+import Link from "next/link";
+import Image from "next/image";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { GetStaticProps } from "next";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+  const { t } = useTranslation("footer");
   return (
     <>
       <Head>
@@ -32,7 +40,37 @@ function MyApp({ Component, pageProps }: AppProps) {
             },
           })}
         >
-          <Title>Windesheim Archive</Title>
+          <Title pr={128}>Windesheim Archive</Title>
+          <Tooltip
+            label={
+              router.locale === "nl" ? "Switch to English" : "In het Nederlands"
+            }
+            sx={{ border: "none", margin: 0, height: "50px" }}
+          >
+            <Link
+              href="/"
+              locale={router.locale === "nl" ? "en" : "nl"}
+              passHref
+            >
+              <a>
+                {router.locale === "nl" ? (
+                  <Image
+                    src="https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/US.svg"
+                    width="50px"
+                    height="50px"
+                    alt="US flag"
+                  />
+                ) : (
+                  <Image
+                    src="https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NL.svg"
+                    width="50px"
+                    height="50px"
+                    alt="NL flag"
+                  />
+                )}
+              </a>
+            </Link>
+          </Tooltip>
         </Box>
         <Component {...pageProps} />
         <Box
@@ -49,12 +87,12 @@ function MyApp({ Component, pageProps }: AppProps) {
           })}
         >
           <Text>
-            Made by{" "}
+            {t("made_by")}{" "}
             <TextLink
               href="https://www.linkedin.com/in/JorrinKievit/"
               text="Jorrin Kievit"
             />
-            , Credits to Steph#3907 on Discord
+            , {t("credits")}
           </Text>
         </Box>
       </MantineProvider>
@@ -62,4 +100,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale as string, ["common", "footer"])),
+  },
+});

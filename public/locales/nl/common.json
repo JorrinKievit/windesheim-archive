@@ -1,0 +1,15 @@
+{
+  "the": "De",
+  "first_paragraph": "migreert naar het nieuwe platform Brightspace. Vanaf 1 september 2022 heeft u geen toegang meer tot uw bestanden op de huidige ELO. Door middel van deze website kunt u een export maken van al uw semesters op de",
+  "second_paragraph": "Hieronder moet u uw eigen cookies invoegen. Dit is een handmatige stap aangezien een browser geen cookies mag inzien van een externe site. De cookies worden gebruikt om automatisch in te loggen, en uw persoonlijke semesters op te halen.",
+  "cookies_question": "Hoe krijg ik mijn ELO cookies?",
+  "third_paragraph": "Na het invoeren van uw cookies, druk op \"Archief ophalen\" en selecteer een map waarin u uw bestanden wilt. Zorg ervoor dat u genoeg ruimte heeft, aangezien de map tot wel 15GB aan data kan bevatten.",
+  "note": {
+    "first_note": "Zorg ervoor dat u de cookies ophaalt vanuit dezelfde browser als dat u deze website gebruikt.",
+    "second_note": "Maar een klein aantal browsers worden ondersteund. Dit komt door het huidige Native FileSystem systeem. De volgende browsers worden ondersteund",
+    "supported_browsers": "ondersteunde browsers",
+    "third_note": "Het kan even duren voordat al uw bestanden zin opgehaald. Sluit deze browser niet af na het drukken op \"Archief ophalen\". Onderaan de pagina kunt u de progressie zien van het archiveren."
+  },
+  "archive_button": "Archief ophalen",
+  "progress": "Progressie"
+}
