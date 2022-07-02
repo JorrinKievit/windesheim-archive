@@ -44,15 +44,15 @@ export class ArchiveHandler {
         url = WINDESHEIM_URL.slice(0, -1) + url;
       }
 
-      const file = await axios.get(`/api/file/${encodeURIComponent(url)}`, {
-        responseType: "arraybuffer",
-      });
+      const file = await axios.get(`/api/file/${encodeURIComponent(url)}`);
+      //decode from base64
+      const data = Buffer.from(file.data, "base64");
 
       let createdFile = await currentDir.getFileHandle(filename, {
         create: true,
       });
       let writable = await createdFile.createWritable();
-      await writable.write(file.data);
+      await writable.write(data);
       await writable.close();
     } catch (e: any) {
       console.error(

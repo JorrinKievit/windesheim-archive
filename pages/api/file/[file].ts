@@ -17,7 +17,7 @@ export default async function handler(
       responseType: "arraybuffer",
     });
     if (response.status === 200) {
-      res.status(200).json(response.data);
+      res.status(200).json(response.data.toString("base64"));
     } else {
       res
         .status(500)
