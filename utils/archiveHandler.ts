@@ -4,6 +4,7 @@ import {
   StudyRouteContent,
   StudyRouteUserhandInDetails,
   ProgressEvent,
+  FileProgressEvent,
 } from "../types";
 import { WINDESHEIM_URL } from "./constants";
 
@@ -22,6 +23,8 @@ export class ArchiveHandler {
   downloadFile = async (_url: string, folder: string, _filename: string) => {
     let url = _url;
     const filename = _filename ? _filename.replace("/", "_") : _filename;
+
+    this.updateFileProgress(`${folder}/${filename}`);
 
     try {
       let currentDir = this.directoryHandler;
@@ -182,13 +185,22 @@ export class ArchiveHandler {
     } else {
       console.error((response.data as ApiError).message);
     }
-    console.log("done");
+    console.log("done!");
+    this.updateFileProgress("");
   };
 
   updateProgress = () => {
     document.dispatchEvent(
       new CustomEvent<ProgressEvent>("updateProgress", {
         detail: { progress: this.progress },
+      })
+    );
+  };
+
+  updateFileProgress = (file: string) => {
+    document.dispatchEvent(
+      new CustomEvent<FileProgressEvent>("updateFileProgress", {
+        detail: { file },
       })
     );
   };

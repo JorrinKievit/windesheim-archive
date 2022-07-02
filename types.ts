@@ -51,3 +51,7 @@ export interface ApiError {
 export interface ProgressEvent {
   progress: number;
 }
+
+export interface FileProgressEvent {
+  file: string;
+}

@@ -21,7 +21,6 @@ export default async function handler(
         .json({ message: "Something went wrong when retrieving study routes" });
     }
   } catch (e) {
-    console.log(e);
     res
       .status(500)
       .json({ message: "Something went wrong when retrieving study routes" });

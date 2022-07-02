@@ -8,8 +8,9 @@
     "first_note": "Zorg ervoor dat u de cookies ophaalt vanuit dezelfde browser als dat u deze website gebruikt.",
     "second_note": "Maar een klein aantal browsers worden ondersteund. Dit komt door het huidige Native FileSystem systeem. De volgende browsers worden ondersteund",
     "supported_browsers": "ondersteunde browsers",
-    "third_note": "Het kan even duren voordat al uw bestanden zin opgehaald. Sluit deze browser niet af na het drukken op \"Archief ophalen\". Onderaan de pagina kunt u de progressie zien van het archiveren."
+    "third_note": "Het kan even duren voordat al uw bestanden zijn opgehaald. Sluit deze browser niet af na het drukken op \"Archief ophalen\". Onderaan de pagina kunt u de progressie zien van het archiveren."
   },
   "archive_button": "Archief ophalen",
-  "progress": "Progressie"
+  "progress": "Progressie",
+  "downloading": "Aan het downloaden"
 }

@@ -11,5 +11,6 @@
     "third_note": "Retrieving all files could also take a while. Do not close the window/browser after pressing \"Get Archive\". Progress can be seen on the bottom of the page."
   },
   "archive_button": "Get Archive",
-  "progress": "Progress"
+  "progress": "Progress",
+  "downloading": "Currently downloading"
 }

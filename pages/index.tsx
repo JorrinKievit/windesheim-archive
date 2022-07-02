@@ -12,7 +12,7 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/hooks";
 import type { GetServerSideProps, NextPage } from "next";
-import { Cookies, ProgressEvent } from "../types";
+import { Cookies, FileProgressEvent, ProgressEvent } from "../types";
 import { ArchiveHandler } from "../utils/archiveHandler";
 import JSCookies from "js-cookie";
 import { WINDESHEIM_URL } from "../utils/constants";
@@ -25,6 +25,7 @@ import { useTranslation } from "next-i18next";
 const Home: NextPage = () => {
   const { t } = useTranslation("common");
   const [progress, setProgress] = useState(0);
+  const [file, setFileProgress] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [opened, setOpened] = useState(false);
   const form = useForm<Cookies>({
@@ -48,12 +49,21 @@ const Home: NextPage = () => {
     setProgress(e.detail.progress);
   }, []) as EventListener;
 
+  const updateFileProgress = useCallback(
+    (e: CustomEvent<FileProgressEvent>) => {
+      setFileProgress(e.detail.file);
+    },
+    []
+  ) as EventListener;
+
   useEffect(() => {
     document.addEventListener("updateProgress", updateProgress);
+    document.addEventListener("updateFileProgress", updateFileProgress);
     return () => {
       document.removeEventListener("updateProgress", updateProgress);
+      document.removeEventListener("updateFileProgress", updateFileProgress);
     };
-  }, [updateProgress]);
+  }, [updateProgress, updateFileProgress]);
 
   useEffect(() => {
     //detect browser feature
@@ -126,6 +136,13 @@ const Home: NextPage = () => {
               size="xl"
               animate
             />
+            {file && (
+              <Text>
+                <>
+                  {t("downloading")}: {file}
+                </>
+              </Text>
+            )}
           </Box>
         </Stack>
       </Container>

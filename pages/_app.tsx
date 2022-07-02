@@ -35,12 +35,23 @@ function MyApp({ Component, pageProps }: AppProps) {
             textAlign: "center",
             borderBottom: `1px solid ${theme.colors.gray[8]}`,
             height: "50px",
-            "@media (max-width: 340px)": {
-              height: "100px",
-            },
           })}
         >
-          <Title pr={128}>Windesheim Archive</Title>
+          <Title
+            pr={128}
+            sx={{
+              "@media (max-width: 525px)": {
+                fontSize: "24px",
+                paddingRight: "24px",
+              },
+              "@media (max-width: 340px)": {
+                fontSize: "16px",
+                paddingRight: "24px",
+              },
+            }}
+          >
+            Windesheim Archive
+          </Title>
           <Tooltip
             label={
               router.locale === "nl" ? "Switch to English" : "In het Nederlands"
