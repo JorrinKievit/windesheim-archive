@@ -8,7 +8,7 @@ import { appWithTranslation, useTranslation } from "next-i18next";
 import Link from "next/link";
 import Image from "next/image";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -105,9 +105,3 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default appWithTranslation(MyApp);
-
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale as string, ["common", "footer"])),
-  },
-});

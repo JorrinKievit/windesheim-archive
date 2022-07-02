@@ -11,7 +11,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useForm } from "@mantine/hooks";
-import type { GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import { Cookies, ProgressEvent } from "../types";
 import { ArchiveHandler } from "../utils/archiveHandler";
 import JSCookies from "js-cookie";
@@ -135,7 +135,9 @@ const Home: NextPage = () => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+export default Home;
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
     ...(await serverSideTranslations(locale as string, [
       "common",
@@ -144,5 +146,3 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
     ])),
   },
 });
-
-export default Home;

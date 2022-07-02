@@ -24,7 +24,7 @@ export default async function handler(
   } catch (e) {
     res
       .status(500)
-      .json({ message: "Something went wrong when retrieving a file" });
+      .json({ message: `Something went wrong when retrieving a file: ${e}` });
   }
 }
 
