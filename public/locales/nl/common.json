@@ -12,5 +12,7 @@
   },
   "archive_button": "Archief ophalen",
   "progress": "Progressie",
-  "downloading": "Aan het downloaden"
+  "downloading": "Aan het downloaden",
+  "notification": "Klaar met downloaden!",
+  "progress_status": "Klaar!"
 }

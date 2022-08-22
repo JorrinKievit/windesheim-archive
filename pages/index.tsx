@@ -9,6 +9,7 @@ import {
   Stack,
   Alert,
   useMantineTheme,
+  Notification,
 } from "@mantine/core";
 import { useForm } from "@mantine/hooks";
 import type { GetServerSideProps, NextPage } from "next";
@@ -21,6 +22,7 @@ import TextLink from "../components/TextLink";
 import InstructionModal from "../components/InstructionModal";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import { showNotification } from "@mantine/notifications";
 
 const Home: NextPage = () => {
   const { t } = useTranslation("common");
@@ -47,6 +49,14 @@ const Home: NextPage = () => {
 
   const updateProgress = useCallback((e: CustomEvent<ProgressEvent>) => {
     setProgress(e.detail.progress);
+
+    if (e.detail.progress === 100) {
+      showNotification({
+        message: t("notification"),
+        color: "green",
+        autoClose: false,
+      });
+    }
   }, []) as EventListener;
 
   const updateFileProgress = useCallback(
@@ -135,6 +145,9 @@ const Home: NextPage = () => {
               label={`${Math.round(progress)}%`}
               size="xl"
               animate
+              sections={[
+                { value: 100, color: "green", label: t("progress_status") },
+              ]}
             />
             {file && (
               <Text>

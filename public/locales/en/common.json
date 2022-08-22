@@ -12,5 +12,7 @@
   },
   "archive_button": "Get Archive",
   "progress": "Progress",
-  "downloading": "Currently downloading"
+  "downloading": "Currently downloading",
+  "notification": "Download finished!",
+  "progress_status": "Finished!"
 }
