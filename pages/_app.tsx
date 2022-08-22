@@ -7,8 +7,7 @@ import { useRouter } from "next/router";
 import { appWithTranslation, useTranslation } from "next-i18next";
 import Link from "next/link";
 import Image from "next/image";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { GetServerSideProps, GetStaticProps } from "next";
+import { NotificationsProvider } from "@mantine/notifications";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -27,89 +26,93 @@ function MyApp({ Component, pageProps }: AppProps) {
         withNormalizeCSS
         withGlobalStyles
       >
-        <Box
-          sx={(theme) => ({
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-            borderBottom: `1px solid ${theme.colors.gray[8]}`,
-            height: "50px",
-          })}
-        >
-          <Title
-            pr={128}
-            sx={{
-              "@media (max-width: 525px)": {
-                fontSize: "24px",
-                paddingRight: "24px",
-              },
-              "@media (max-width: 340px)": {
-                fontSize: "16px",
-                paddingRight: "24px",
-              },
-            }}
+        <NotificationsProvider position="top-right">
+          <Box
+            sx={(theme) => ({
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              borderBottom: `1px solid ${theme.colors.gray[8]}`,
+              height: "50px",
+            })}
           >
-            Windesheim Archive
-          </Title>
-          <Tooltip
-            label={
-              router.locale === "nl" ? "Switch to English" : "In het Nederlands"
-            }
-            sx={{ border: "none", margin: 0, height: "50px" }}
-          >
-            <Link
-              href="/"
-              locale={router.locale === "nl" ? "en" : "nl"}
-              passHref
+            <Title
+              pr={128}
+              sx={{
+                "@media (max-width: 525px)": {
+                  fontSize: "24px",
+                  paddingRight: "24px",
+                },
+                "@media (max-width: 340px)": {
+                  fontSize: "16px",
+                  paddingRight: "24px",
+                },
+              }}
             >
-              <a>
-                {router.locale === "nl" ? (
-                  <Image
-                    src="https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/US.svg"
-                    width="50px"
-                    height="50px"
-                    alt="US flag"
-                  />
-                ) : (
-                  <Image
-                    src="https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NL.svg"
-                    width="50px"
-                    height="50px"
-                    alt="NL flag"
-                  />
-                )}
-              </a>
-            </Link>
-          </Tooltip>
-        </Box>
-        <Component {...pageProps} />
-        <Box
-          sx={(theme) => ({
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-            borderTop: `1px solid ${theme.colors.gray[8]}`,
-            height: "50px",
-            "@media (max-width: 340px)": {
-              height: "100px",
-            },
-          })}
-        >
-          <Text>
-            {t("made_by")}{" "}
-            <TextLink
-              href="https://www.linkedin.com/in/JorrinKievit/"
-              text="Jorrin Kievit"
-            />
-            , {t("credits")}. Source code:{" "}
-            <TextLink
-              href="https://github.com/JorrinKievit/windesheim-archive"
-              text="GitHub"
-            />
-          </Text>
-        </Box>
+              Windesheim Archive
+            </Title>
+            <Tooltip
+              label={
+                router.locale === "nl"
+                  ? "Switch to English"
+                  : "In het Nederlands"
+              }
+              sx={{ border: "none", margin: 0, height: "50px" }}
+            >
+              <Link
+                href="/"
+                locale={router.locale === "nl" ? "en" : "nl"}
+                passHref
+              >
+                <a>
+                  {router.locale === "nl" ? (
+                    <Image
+                      src="https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/US.svg"
+                      width="50px"
+                      height="50px"
+                      alt="US flag"
+                    />
+                  ) : (
+                    <Image
+                      src="https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NL.svg"
+                      width="50px"
+                      height="50px"
+                      alt="NL flag"
+                    />
+                  )}
+                </a>
+              </Link>
+            </Tooltip>
+          </Box>
+          <Component {...pageProps} />
+          <Box
+            sx={(theme) => ({
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              borderTop: `1px solid ${theme.colors.gray[8]}`,
+              height: "50px",
+              "@media (max-width: 340px)": {
+                height: "100px",
+              },
+            })}
+          >
+            <Text>
+              {t("made_by")}{" "}
+              <TextLink
+                href="https://www.linkedin.com/in/JorrinKievit/"
+                text="Jorrin Kievit"
+              />
+              , {t("credits")}. Source code:{" "}
+              <TextLink
+                href="https://github.com/JorrinKievit/windesheim-archive"
+                text="GitHub"
+              />
+            </Text>
+          </Box>
+        </NotificationsProvider>
       </MantineProvider>
     </>
   );
