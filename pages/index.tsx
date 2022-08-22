@@ -142,12 +142,14 @@ const Home: NextPage = () => {
             <Text>{t("progress")}:</Text>
             <Progress
               value={progress}
-              label={`${Math.round(progress)}%`}
+              label={
+                Math.round(progress) === 100
+                  ? t("progress_status")
+                  : `${Math.round(progress)}%`
+              }
+              color={Math.round(progress) === 100 ? "green" : "blue"}
               size="xl"
               animate
-              sections={[
-                { value: 100, color: "green", label: t("progress_status") },
-              ]}
             />
             {file && (
               <Text>
